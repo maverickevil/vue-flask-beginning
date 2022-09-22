@@ -8,7 +8,7 @@
 
 - 关于 `vue`/`flask` 的基本使用
 
-1. `Vue`主要介绍`vue-cli`搭建、以及`vue-router`和`axios`的用法
+1. `Vue2`主要介绍`vue-cli`搭建、以及`vue-router`和`axios`的用法
 
 2. `Flask`主要介绍几种布局风格，以及通过后端处理`CORS`的思路
 
@@ -62,3 +62,5 @@ python app.py
 ```
 
 ## WEB 截图
+![image](https://user-images.githubusercontent.com/58482090/191813592-7ade3128-62eb-4605-a73e-49de7d0a4b38.png)
+
