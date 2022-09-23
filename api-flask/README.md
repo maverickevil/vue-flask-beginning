@@ -33,6 +33,9 @@
 
 ## CORS 跨域请求
 ```text
+[线上环境]
+由于Prod使用Nginx作反向代理，一般不会出现跨域问题，通常这种问题只出现在Dev开发时。
+
 [跨域问题]
 跨域是因为出于浏览器的同源策略限制。同源策略（Sameoriginpolicy）是一种约定，它是浏览器最核心也最基本的安全功能，如果缺少了同源策略，则浏览器的正常功能可能都会受到影响。可以说Web是构建在同源策略基础之上的，浏览器只是针对同源策略的一种实现。同源策略会阻止一个域的javascript脚本和另外一个域的内容进行交互。
 所谓同源（即指在同一个域）就是两个页面具有相同的协议（protocol），主机（host）和端口号（port）。
@@ -43,8 +46,16 @@
     No 'Access-Control-Allow-Origin' header is present on the requested
 
 [解决办法]
-1. 使用flask_cors模块，解决跨域请求
-2. 使用flask内置的after_request()方法（请求扩展）
-3. 使用flask内置的make_response()方法
-4. 实现flask中间件，拦截response，在请求对象返回前，设置响应头
+a - 后端解决（优雅的方式）
+  1. 使用flask_cors模块，解决跨域请求
+  2. 使用flask内置的after_request()方法（请求扩展）
+  3. 使用flask内置的make_response()方法
+  4. 实现flask中间件，拦截response，在请求对象返回前，设置响应头
+  ...
+b - 前端代理
+...
+c - JSONP
+...
+d - 浏览器关闭
+...
 ```
