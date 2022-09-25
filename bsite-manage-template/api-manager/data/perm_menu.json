@@ -1,0 +1,72 @@
+{
+  "super": {
+    "menu": [
+      {
+        "path": "/",
+        "name": "home",
+        "label": "首页",
+        "icon": "s-home",
+        "url": "home/index"
+      },
+      {
+        "path": "/mall",
+        "name": "mall",
+        "label": "商品管理",
+        "icon": "video-play",
+        "url": "mall/index"
+      },
+      {
+        "path": "/user",
+        "name": "user",
+        "label": "用户管理",
+        "icon": "user",
+        "url": "user/index"
+      },
+      {
+        "label": "其他",
+        "icon": "location",
+        "children": [
+          {
+            "path": "/page1",
+            "name": "page1",
+            "label": "页面1",
+            "icon": "setting",
+            "url": "other/pageOne"
+          },
+          {
+            "path": "/page2",
+            "name": "page2",
+            "label": "页面2",
+            "icon": "setting",
+            "url": "other/pageTwo"
+          },
+          {
+            "path": "/page3",
+            "name": "page3",
+            "label": "页面3",
+            "icon": "setting",
+            "url": "other/pageThree"
+          }
+        ]
+      }
+    ]
+  },
+  "user": {
+    "menu": [
+      {
+        "path": "/",
+        "name": "home",
+        "label": "首页",
+        "icon": "s-home",
+        "url": "home/index"
+      },
+      {
+        "path": "/video",
+        "name": "video",
+        "label": "商品管理",
+        "icon": "video-play",
+        "url": "mall/index"
+      }
+    ]
+  }
+}

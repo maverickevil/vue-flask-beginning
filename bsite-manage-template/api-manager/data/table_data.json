@@ -1,0 +1,40 @@
+{
+  "tableData": [
+    {
+      "name": "Oppo",
+      "todayBuy": 500,
+      "monthBuy": 3500,
+      "totalBuy": 21000
+    },
+    {
+      "name": "Vivo",
+      "todayBuy": 300,
+      "monthBuy": 2200,
+      "totalBuy": 23000
+    },
+    {
+      "name": "iPhone",
+      "todayBuy": 800,
+      "monthBuy": 4500,
+      "totalBuy": 64000
+    },
+    {
+      "name": "Xiaomi",
+      "todayBuy": 1200,
+      "monthBuy": 6600,
+      "totalBuy": 46000
+    },
+    {
+      "name": "Sumsung",
+      "todayBuy": 300,
+      "monthBuy": 2000,
+      "totalBuy": 35000
+    },
+    {
+      "name": "Meizu",
+      "todayBuy": 350,
+      "monthBuy": 3000,
+      "totalBuy": 23000
+    }
+  ]
+}
