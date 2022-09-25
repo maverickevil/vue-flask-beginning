@@ -1,0 +1,193 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <style>
+        body {
+            margin: 0;
+        }
+
+        .container {
+            width: 1100px;
+            margin: 0 auto;
+        }
+
+        .menu {
+            height: 48px;
+            background-color: #499ef3;
+            line-height: 48px;
+
+        }
+
+        .menu a {
+            color: white;
+            text-decoration: none;
+            padding: 0 10px;
+        }
+
+        .star-list {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: flex-start;
+        }
+
+        .star-list .item {
+            width: 248px;
+            padding: 10px;
+            border: 1px solid #dddddd;
+            margin-right: 5px;
+            margin-top: 10px;
+        }
+
+        .star-list .item img {
+            width: 100%;
+            height: 120px;
+        }
+    </style>
+
+    <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/vue-router/dist/vue-router.js"></script>
+    <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
+</head>
+<body>
+<div id="app">
+    <div class="menu">
+        <div class="container">
+            <router-link to="/">Logo</router-link>
+            <router-link to="/home">首页</router-link>
+            <router-link to="/star">明星</router-link>
+        </div>
+    </div>
+    <div class="container">
+        <router-view></router-view>
+    </div>
+</div>
+
+<script>
+    const Home = {
+        data: function () {
+            return {
+                title: "欢迎来到明星曲库"
+            }
+        },
+        template: `<h2>{{ title }}</h2>`
+    }
+
+    const Star = {
+        data: function () {
+            return {
+                starList: {}
+            }
+        },
+        created: function () {
+            this.starList = [
+                {
+                    'id': 1,
+                    'name': '周杰伦',
+                    'url': 'https://image.uisdc.com/wp-content/uploads/2018/12/uisdc-jl-20181224-36.jpg'
+                },
+                {
+                    'id': 2,
+                    'name': '五月天',
+                    'url': 'https://i.ytimg.com/vi/tLrnWxXsyho/maxresdefault.jpg'
+                },
+                {
+                    'id': 3,
+                    'name': '苏打绿',
+                    'url': 'https://img1.jiemian.com/101/original/20210411/161815189374629300_a640x364.jpg'
+                }
+            ];
+        },
+        template: `
+          <div class="star-list">
+          <div class="item" v-for="item in starList">
+            <router-link :to="{name: 'Detail', params: {sid: item.id}, query: {sname: item.name}}">
+              <img :src="item.url" :alt="item.name">
+              <a>{{ item.name }}</a>
+            </router-link>
+          </div>
+          </div>
+        `
+    }
+
+    const Detail = {
+        data: function () {
+            return {
+                title: "详细页面",
+                starId: null,
+                starName: null,
+                albumList: [],
+                urlList: [
+                    {id: 1000, title: "google"},
+                    {id: 2000, title: "toutiao"},
+                    {id: 3000, title: "baidu"},
+                ]
+            }
+        },
+        created: function () {
+            this.starId = this.$route.params.sid;
+            dataDict = this.$route.query;
+            this.starName = dataDict.sname;
+            this.albumList = this.getSongList(this.starName);
+        },
+        watch: {
+            $route: function (to, from) {
+                this.starId = to.params.sid;
+                console.log(this.starName, this.starId);
+            }
+        },
+        methods: {
+            getSongList: function (starName) {
+                let data = [
+                    {name: '周杰伦', song: ['《最伟大的作品》', '《夜曲》', '《止战之殇》'],},
+                    {name: '五月天', song: ['《離開地球表面》', '《温柔》', '《为爱而生》'],},
+                    {name: '苏打绿', song: ['《无与伦比的美丽》', '《小情歌》', '《我好想你》'],},
+                ]
+                for (let item in data) {
+                    if (starName === data[item].name) {
+                        return data[item].song
+                    }
+                }
+                return null
+            }
+        },
+        template: `
+          <div>
+          <h2>{{ starName }} 导航 SID 为 {{ starId }}</h2>
+          <div>
+            <b>作品介绍</b>
+            <ul v-for="(item, idx) in albumList">
+              <li>编号: {{ idx + 1 }}, 歌曲: {{ item }}</li>
+            </ul>
+          </div>
+          <div>
+            <b>外部链接</b>
+            <ul>
+              <li v-for="item in urlList">
+                <router-link :to="{name: 'Detail', params: {sid: item.id}}">{{ item.title }}</router-link>
+              </li>
+            </ul>
+          </div>
+          </div>
+        `
+    }
+
+    const router = new VueRouter({
+        routes: [
+            {path: '/', component: Home},
+            {path: '/home', component: Home},
+            {path: '/star', component: Star},
+            {path: '/detail/:sid', component: Detail, name: 'Detail'}
+        ]
+    })
+
+    var app = new Vue({
+        el: '#app',
+        data: {},
+        methods: {},
+        router: router
+    })
+</script>
+</body>
+</html>

@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <script src="https://cdn.jsdelivr.net/npm/vue@2/dist/vue.js"></script>
+    <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
+    <style>
+        label {
+            width: 60px;
+            display: inline-block;
+            text-align: right;
+            margin-right: 8px;
+        }
+    </style>
+</head>
+<body>
+<div id="app">
+    <div>
+        <p>
+            <label>用户名</label>
+            <input type="text" placeholder="用户名" v-model="info.username">
+        </p>
+        <p>
+            <label>密码</label>
+            <input type="password" placeholder="密码" v-model="info.password">
+        </p>
+    </div>
+    <input type="button" value="登 录" @click="loginForm"/>
+</div>
+
+<script>
+  var app = new Vue({
+      el: '#app',
+      data: {
+          info: {
+              username: "",
+              password: "",
+          }
+      },
+      methods: {
+          loginForm: function () {
+              // 1.获取用户输入的值
+              let dataDict = this.info;
+              let url = "https://passport.baidu.com/v2/api/?login";
+              
+              // 2.想某个地址发送网络请求 axios
+              axios({
+                  method: "post",
+                  url: url,
+                  data: dataDict,
+                  headers: {
+                      "Content-Type": "application/json"
+                  }
+              }).then(function (res) {
+                  // 登录成功后跳转
+                  window.location.href = "https://www.baidu.com";
+              }).catch(function (error) {
+                  console.log("请求异常，请重新操作")
+              })
+          }
+      }
+  })
+</script>
+</body>
+</html>

@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <script src="https://cdn.jsdelivr.net/npm/vue@2/dist/vue.js"></script>
+</head>
+<body>
+<div id="app">
+    <div>我叫{{name}}，我喜欢{{hobby}}，邮箱:{{dataInfo.email}}</div>
+    <ul>
+        <li>{{'哈哈哈'}}</li>
+        <li>{{'hello' + "world"}}</li>
+        <li>{{ num + 1 + 1 }}</li>
+        <li>{{ condition?"正确":"错误"}}</li>
+    </ul>
+    <input type="button" value="点我" v-on:click="clickMe">
+</div>
+
+
+<script>
+    var app = new Vue({
+        el: '#app',
+        data: {
+            name: 'ming',
+            hobby: 'lol',
+            dataInfo: {
+                id: 1,
+                email: "ming@mail.com"
+            },
+            condition: false,
+            num: 1
+        },
+        methods: {
+            clickMe: function () {
+                this.name = "uzi";
+                this.condition = true;
+                this.dataInfo.email = "uzi@qq.com";
+                this.base += 100;
+            }
+        }
+    })
+</script>
+</body>
+</html>

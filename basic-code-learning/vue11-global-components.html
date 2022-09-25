@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <script src="https://cdn.jsdelivr.net/npm/vue@2/dist/vue.js"></script>
+</head>
+<body>
+<div id="app">
+    <!-- 全局组件不用挂载直接使用 -->
+    <Demo></Demo>
+    <!-- 子组件可重用 -->
+    <Demo></Demo>
+</div>
+<script>
+    //创建子组件
+    Vue.component('Demo', {
+        data: function () {
+            return {
+                msg: '哈哈哈哈哈'
+            }
+        },
+        template: `
+            <div>
+                <h1>{{msg}}</h1>
+                <input type="text" v-model="msg"/>
+                <input type="button" @click="showMeg" value="点我呀">
+            </div>
+        `,
+        methods: {
+            showMeg: function () {
+                alert(this.msg);
+            }
+        }
+    });
+    var app = new Vue({
+        el: '#app',
+        data: {},
+        methods: {}
+    })
+</script>
+</body>
+</html>

@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <script src="https://cdn.jsdelivr.net/npm/vue@2/dist/vue.js"></script>
+</head>
+<body>
+<div id="app">
+  <!-- 当前页面 -->
+  <h1>{{title}}</h1>
+  <!-- 引入子组件 -->
+  <Foo></Foo>
+  <Bar></Bar>
+</div>
+<script>
+    //创建子组件
+    const Foo = {
+        data:function() {
+            return {
+                msg: '哈哈哈哈哈'
+            }
+        },
+        template: `
+            <div>
+                <h2>{{msg}}</h2>
+                <input type="text" v-model="msg"/>
+                <input type="button" @click="showMeg" value="点我呀">
+            </div>
+        `,
+        methods: {
+            showMeg: function () {
+                alert(this.msg);
+            }
+        }
+    }
+
+    //创建子组件
+    const Bar = {
+        // 组件中的data是一个方法，并返回值（与Vue对象创建不同）
+        data:function() {
+            return {
+                dataList: [
+                    {"id": 1, "title": "你好呀"},
+                    {"id": 2, "title": "你不好"},
+                ]
+            }
+        },
+        template: `
+            <div>
+                <h2>列表</h2>
+                <table border="1">
+                    <thead>
+                    <tr>
+                        <th>ID</th>
+                        <th>标题</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    <tr v-for="item in dataList">
+                        <td>{{item.id}}</td>
+                        <td>{{item.title}}</td>
+                    </tr>
+                    </tbody>
+                </table>
+            </div>
+        `
+    }
+
+    var app = new Vue({
+        el: '#app',
+        data: {
+            title: "主题",
+        },
+        components: {
+            Foo,
+            Bar
+        },
+        methods: {}
+    })
+</script>
+</body>
+</html>

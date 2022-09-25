@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+	<meta charset="UTF-8">
+	<title>Title</title>
+	<!-- 1.引入vue.js文件 -->
+	<script src="https://cdn.jsdelivr.net/npm/vue@2/dist/vue.js"></script>
+</head>
+
+<body>
+
+	<!-- 2.指定区域，该区域的内容希望由vue.js来接管。 -->
+	<div id="app">
+		<div>我叫{{name}}，今年{{age}}岁</div>
+
+		<input type="button" value="点我" v-on:click="clickMe">
+	</div>
+
+	<script>
+		// 3.创建Vue对象，并关联指定HTML区域。
+    var app = new Vue({
+        el: '#app',
+        data: {
+            name: 'ming',
+            age: '16'
+        },
+        methods: {
+            clickMe: function () {
+                this.name = "uzi";
+                this.age = "18";
+            }
+        }
+    })
+	</script>
+</body>
+
+</html>

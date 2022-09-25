@@ -1,0 +1,272 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <style>
+        body {
+            margin: 0;
+        }
+
+        .header {
+            height: 48px;
+            background-color: #499ef3;
+            line-height: 48px;
+
+        }
+
+        .header a {
+            color: white;
+            text-decoration: none;
+            padding: 0 10px;
+        }
+
+        .body .left-menu {
+            width: 180px;
+            border: 1px solid #dddddd;
+            border-bottom: 0;
+            position: absolute;
+            left: 1px;
+            top: 50px;
+            bottom: 0;
+            overflow: auto;
+            background-color: #f3f5f7;
+        }
+
+        .body .left-menu .head {
+            border-bottom: 1px solid #dddddd;
+            text-align: center;
+            font-size: 18px;
+            font-weight: bold;
+            padding: 15px;
+        }
+
+        .body .left-menu a {
+            display: block;
+            padding: 10px;
+            border-bottom: 1px solid #dddddd;
+        }
+
+        .body .right-body {
+            position: absolute;
+            left: 183px;
+            top: 50px;
+            right: 0;
+            bottom: 0;
+            overflow: auto;
+            padding: 10px;
+
+        }
+    </style>
+    <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/vue-router/dist/vue-router.js"></script>
+</head>
+<body>
+<div id="app">
+    <router-view></router-view>
+</div>
+
+<script>
+
+    const Home = {
+        data: function () {
+            return {
+                title: "欢迎使用WeGame"
+            }
+        },
+        methods: {
+            doLogout: function () {
+                sessionStorage.clear();
+                this.$router.push({name: "Login"});
+            }
+        },
+        template: `
+            <div>
+                <div class="header">
+                    <router-link to="/">Logo</router-link>
+                    <router-link to="/home">首页</router-link>
+                    <router-link :to="{name:'Tencent'}">腾讯游戏</router-link>
+                    <router-link :to="{name:'NetEase'}">网易游戏</router-link>
+
+                    <div style="float: right;">
+                        <a @click="doLogout" style="cursor: pointer;">注销</a>
+                    </div>
+                </div>
+                <div class="body">
+                    <router-view></router-view>
+                </div>
+            </div>
+        `
+    };
+
+    const Index = {template: '<h3>热门游戏推荐</h3>'}
+
+    const Tencent = {
+        data: function () {
+            return {}
+        },
+        template: `
+            <div>
+                <div class="left-menu">
+                    <div class="head">腾讯游戏</div>
+                    <router-link :to="{name:'DNF'}">地下城与勇士</router-link>
+                    <router-link :to="{name:'LOL'}">英雄联盟</router-link>
+                    <router-link :to="{name:'CF'}">穿越火线</router-link>
+                </div>
+                <div class="right-body">
+                    <router-view></router-view>
+                </div>
+
+            </div>`
+    };
+
+    const DNF = {template: `<h3>捍卫天界荣耀</h3>`};
+    const LOL = {template: `<h3>无畏造英雄</h3>`};
+    const CF = {template: `<h3>全新黑骑士</h3>`};
+
+    const NetEase = {
+        data: function () {
+            return {}
+        },
+        template: `
+            <div>
+                <div class="left-menu">
+                    <div class="head">网易游戏</div>
+                    <router-link :to="{name: 'Fantasy'}">夢幻西遊</router-link>
+                    <router-link :to="{name: 'Onmyoji'}">阴阳师</router-link>
+                    <router-link :to="{name: 'IdentityV'}">第五人格</router-link>
+                </div>
+                <div class="right-body">
+                    <router-view></router-view>
+                </div>
+
+            </div>`
+    };
+
+    const Fantasy = {template: `<h3>新武神坛之战</h3>`};
+    const Onmyoji = {template: `<h3>鬼灭三期SSR</h3>`};
+    const IdentityV = {template: `<h3>心惊胆战，追逐逃生</h3>`};
+
+    const Login = {
+        data: function () {
+            return {
+                user: '',
+                pwd: ''
+            }
+        },
+        methods: {
+            doLogin: function () {
+                if (this.user.length > 0 && this.pwd.length > 0) {
+                    sessionStorage.setItem("isLogin", true);
+                    // 编程式导航
+                    this.$router.push({name: 'Index'});
+                    // this.$router.replace({name: 'Tencent'});
+                }
+            }
+        },
+        template: `
+            <div style="width: 500px;margin: 100px auto">
+                <input type="text" placeholder="用户名" v-model="user"/>
+                <input type="text" placeholder="密码" v-model="pwd" />
+                <input type="button" value="进 入" @click="doLogin" style="cursor: pointer;" />
+            </div>
+         `
+    };
+
+    const router = new VueRouter({
+        routes: [
+            {
+                path: '/',
+                component: Home,
+                redirect: '/home'
+            },
+            {
+                path: '/home',
+                component: Home,
+                name: "Home",
+                children: [
+                    {
+                        path: '',
+                        component: Index,
+                        name: "Index"
+                    },
+                    {
+                        path: 'tencent',
+                        redirect: {name: 'DNF'},
+                        component: Tencent,
+                        name: 'Tencent',
+                        children: [
+                            {
+                                path: 'dnf',
+                                component: DNF,
+                                name: 'DNF'
+                            },
+                            {
+                                path: 'lol',
+                                component: LOL,
+                                name: 'LOL'
+                            },
+                            {
+                                path: 'cf',
+                                component: CF,
+                                name: 'CF'
+                            }
+                        ]
+                    },
+                    {
+                        path: 'netease',
+                        redirect: {name: 'Fantasy'},
+                        component: NetEase,
+                        name: 'NetEase',
+                        children: [
+                            {
+                                path: 'fantasy',
+                                component: Fantasy,
+                                name: 'Fantasy'
+                            },
+                            {
+                                path: 'onmyoji',
+                                component: Onmyoji,
+                                name: 'Onmyoji'
+                            },
+                            {
+                                path: 'identity-v',
+                                component: IdentityV,
+                                name: 'IdentityV'
+                            }
+                        ]
+                    }
+                ],
+                beforeEnter: (to, from, next) => {
+                    // 如果已登录，则可以继续访问目标地址
+                    if (sessionStorage.getItem('isLogin')) {
+                        next();
+                        return;
+                    }
+                    // 未登录，访问登录页面
+                    if (to.name === "Login") {
+                        next();
+                        return;
+                    }
+                    // 未登录，跳转登录页面
+                    // next(false); 保持当前所在页面，不跳转
+                    next({name: 'Login'});
+                }
+            },
+            {
+                path: '/login', 
+                component: Login, 
+                name: 'Login'
+            }
+        ]
+    })
+
+    var app = new Vue({
+        el: '#app',
+        data: {},
+        methods: {},
+        router: router
+    })
+</script>
+</body>
+</html>

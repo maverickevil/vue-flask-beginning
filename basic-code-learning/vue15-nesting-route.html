@@ -1,0 +1,204 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <style>
+        body {
+            margin: 0;
+        }
+
+        .header {
+            height: 48px;
+            background-color: #499ef3;
+            line-height: 48px;
+
+        }
+
+        .header a {
+            color: white;
+            text-decoration: none;
+            padding: 0 10px;
+        }
+
+        .body .left-menu {
+            width: 180px;
+            border: 1px solid #dddddd;
+            border-bottom: 0;
+            position: absolute;
+            left: 1px;
+            top: 50px;
+            bottom: 0;
+            overflow: auto;
+            background-color: #f3f5f7;
+        }
+
+        .body .left-menu .head {
+            border-bottom: 1px solid #dddddd;
+            text-align: center;
+            font-size: 18px;
+            font-weight: bold;
+            padding: 15px;
+        }
+
+        .body .left-menu a {
+            display: block;
+            padding: 10px;
+            border-bottom: 1px solid #dddddd;
+        }
+
+        .body .right-body {
+            position: absolute;
+            left: 183px;
+            top: 50px;
+            right: 0;
+            bottom: 0;
+            overflow: auto;
+            padding: 10px;
+
+        }
+    </style>
+
+    <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/vue-router/dist/vue-router.js"></script>
+    <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
+</head>
+<body>
+<div id="app">
+    <div class="header">
+        <router-link to="/">Logo</router-link>
+        <router-link to="/home">首页</router-link>
+        <router-link to="/tencent">腾讯游戏</router-link>
+        <router-link to="/netease">网易游戏</router-link>
+    </div>
+    <div class="body">
+        <router-view></router-view>
+    </div>
+
+</div>
+
+<script>
+
+    const Home = {
+        data: function () {
+            return {
+                title: "欢迎使用WeGame"
+            }
+        },
+        template: `<h2>{{title}}</h2>`
+    };
+
+    const Tencent = {
+        data: function () {
+            return {}
+        },
+        template: `
+            <div>
+                <div class="left-menu">
+                    <div class="head">腾讯游戏</div>
+                    <router-link :to="{name:'DNF'}">地下城与勇士</router-link>
+                    <router-link :to="{name:'LOL'}">英雄联盟</router-link>
+                    <router-link :to="{name:'CF'}">穿越火线</router-link>
+                </div>
+                <div class="right-body">
+                    <router-view></router-view>
+                </div>
+
+            </div>`
+    };
+
+    const DNF = {template: `<h3>捍卫天界荣耀</h3>`};
+    const LOL = {template: `<h3>无畏造英雄</h3>`};
+    const CF = {template: `<h3>全新黑骑士</h3>`};
+
+    const NetEase = {
+        data: function () {
+            return {}
+        },
+        template: `
+            <div>
+                <div class="left-menu">
+                    <div class="head">网易游戏</div>
+                    <router-link :to="{name: 'Fantasy'}">夢幻西遊</router-link>
+                    <router-link :to="{name: 'Onmyoji'}">阴阳师</router-link>
+                    <router-link :to="{name: 'IdentityV'}">第五人格</router-link>
+                </div>
+                <div class="right-body">
+                    <router-view></router-view>
+                </div>
+
+            </div>`
+    };
+
+    const Fantasy = {template: `<h3>新武神坛之战</h3>`};
+    const Onmyoji = {template: `<h3>鬼灭三期SSR</h3>`};
+    const IdentityV = {template: `<h3>心惊胆战，追逐逃生</h3>`};
+
+    const router = new VueRouter({
+        routes: [
+            {path: '/', component: Home},
+            {path: '/home', component: Home},
+            {
+                path: '/tencent',
+                component: Tencent,
+                name: 'Tencent',
+                children: [
+                    {
+                        path: '',
+                        redirect: {name: 'DNF'}
+                    },
+                    {
+                        path: 'dnf',
+                        component: DNF,
+                        name: 'DNF'
+                    },
+                    {
+                        path: 'lol',
+                        component: LOL,
+                        name: 'LOL'
+                    },
+                    {
+                        path: 'cf',
+                        component: CF,
+                        name: 'CF'
+                    }
+                ]
+            },
+            {
+                path: '/netease',
+                component: NetEase,
+                name: 'NetEase',
+                children: [
+                    {
+                        path: '',
+                        redirect: {name: 'Fantasy'}
+                    },
+                    {
+                        path: 'fantasy',
+                        component: Fantasy,
+                        name: 'Fantasy'
+                    },
+                    {
+                        path: 'onmyoji',
+                        component: Onmyoji,
+                        name: 'Onmyoji'
+                    },
+                    {
+                        path: 'identity-v',
+                        component: IdentityV,
+                        name: 'IdentityV'
+                    }
+                ]
+            }
+        ]
+    })
+
+    var app = new Vue({
+        el: '#app',
+        data: {},
+        methods: {},
+        router: router
+    })
+</script>
+</body>
+</html>

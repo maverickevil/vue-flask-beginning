@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <script src="https://cdn.jsdelivr.net/npm/vue@2/dist/vue.js"></script>
+</head>
+<body>
+<div id="app">
+  <!-- 简单写法 -->
+  <button @click="clickMe">点击</button>
+  <button v-on:dblclick="doSomething('双击～')">双击</button>
+  <button v-on:mouseover="doSomething('进入～')" v-on:mouseout="doSomething('离开～')">进入&离开</button>
+</div>
+
+<script>
+    var app = new Vue({
+        el: '#app',
+        data: {},
+        methods: {
+            clickMe: function () {
+                console.log("单击")
+            },
+            doSomething: function (msg) {
+                console.log(msg);
+            }
+        }
+    })
+</script>
+</body>
+</html>
