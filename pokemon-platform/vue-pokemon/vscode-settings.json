@@ -1,0 +1,38 @@
+{
+    "workbench.colorTheme": "Ayu Light Bordered",
+    "editor.fontSize": 16,
+    "editor.fontFamily": "'JetBrains Mono', Menlo, Monaco, 'Courier New', monospace",
+    "editor.cursorSmoothCaretAnimation": true,
+    "editor.minimap.enabled": false,
+    "security.workspace.trust.untrustedFiles": "open",
+    "explorer.confirmDelete": false,
+    "explorer.confirmDragAndDrop": false,
+    "workbench.startupEditor": "none",
+
+    /*
+    prettier 相关
+    */
+    "prettier.jsxSingleQuote": true,
+    "prettier.semi": false,         // 去掉代码结尾的分号
+    "prettier.singleQuote": true,   // 使用单引号替代双引号
+    "prettier.requireConfig": true,
+    /*
+    javascript 相关
+    */
+    "javascript.preferences.quoteStyle": "single",
+    "javascript.format.insertSpaceBeforeFunctionParenthesis": true, // 函数(名)和后面的括号之间加个空格
+    "javascript.updateImportsOnFileMove.enabled": "always",
+    "[vue]": {
+        "editor.defaultFormatter": "esbenp.prettier-vscode"
+    },
+    "[javascript]": {
+        "editor.defaultFormatter": "esbenp.prettier-vscode"
+    },
+    "[typescript]": {
+        "editor.defaultFormatter": "esbenp.prettier-vscode"
+    },
+    "[html]": {
+        "editor.defaultFormatter": "esbenp.prettier-vscode"
+    },
+    "editor.formatOnSave": true
+}
